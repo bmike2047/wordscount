@@ -48,12 +48,12 @@ collection: final_results -> this is created by the map-reduce command. This is 
 
 
 5.2)We will run all other workers like this.
-./java -Xmx500m -DworkerName=work2 -DbulkSave=80000 -Dfile="/mnt/hgfs/F/enwiki-20180520-pages-articles-multistream.xml"  -jar  "WordsCount.jar"
-./java -Xmx500m -DworkerName=work3 -DbulkSave=80000 -Dfile="/mnt/hgfs/F/enwiki-20180520-pages-articles-multistream.xml"  -jar  "WordsCount.jar"
+./java -Xmx500m -DworkerName=work2 -DbulkSave=80000 -DmongoHost=localhost -DmongoPort=27017  -Dfile="/mnt/hgfs/F/enwiki-20180520-pages-articles-multistream.xml" -jar "WordsCount.jar"
+./java -Xmx500m -DworkerName=work3 -DbulkSave=80000 -DmongoHost=localhost -DmongoPort=27017  -Dfile="/mnt/hgfs/F/enwiki-20180520-pages-articles-multistream.xml" -jar "WordsCount.jar"
 .
 .
 .
-./java -Xmx500m -DworkerName=work(N) -DbulkSave=80000 -Dfile="/mnt/hgfs/F/enwiki-20180520-pages-articles-multistream.xml"  -jar  "WordsCount.jar"
+./java -Xmx500m -DworkerName=work(N) -DbulkSave=80000 -DmongoHost=localhost -DmongoPort=27017  -Dfile="/mnt/hgfs/F/enwiki-20180520-pages-articles-multistream.xml" -jar "WordsCount.jar"
 
 
 6)Notes
@@ -61,5 +61,6 @@ If a worker goes down we will need to re-run it with the same name it had before
 The accuracy of the utility is based on the regexp and other filters we used to split the words at CountWorker.java, lines:188,198 This can be tuned.
 If the command line is too big this is because we depend a lot on the machine we are running the utility on and the file size. Most of the parameters have default values but some tuning is needed.
 The utility can be run with the commands provided above.
+
 
 

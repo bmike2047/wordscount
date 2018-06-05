@@ -57,11 +57,11 @@ public class CountWorker {
 
         LogSetup.setupLog(log);
 
-        String filePath = System.getProperty("file") != null ? System.getProperty("file") : "/home/claims/Desktop/pom.xml";
+        String filePath = System.getProperty("file") != null ? System.getProperty("file") : "/home/claims/Desktop/1.xml";
         String chunks = System.getProperty("chunks") != null ? System.getProperty("chunks") : "10";
         String mongoHost = System.getProperty("mongoHost") != null ? System.getProperty("mongoHost") : "localhost1";
-        String mongoPort = System.getProperty("mongoPort") != null ? System.getProperty("mongoPort") : "270171";
-        String workerName = System.getProperty("workerName") != null ? System.getProperty("workerName") : "work1";
+        String mongoPort = System.getProperty("mongoPort") != null ? System.getProperty("mongoPort") : "27017";
+        String workerName = System.getProperty("workerName") != null ? System.getProperty("workerName") : "work";
         String bulkSave = System.getProperty("bulkSave") != null ? System.getProperty("bulkSave") : "30";
         String createDB = System.getProperty("createDB") != null ? System.getProperty("createDB") : "false";
         String collector = System.getProperty("collector") != null ? System.getProperty("collector") : "false";
