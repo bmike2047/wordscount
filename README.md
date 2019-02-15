@@ -39,7 +39,7 @@ collection: final_results -> this is created by the map/reduce command. This is 
 
 - -Xmx500m, Memory for worker. As you can see this is low because we are using lots of chunks. This can be tuned based on available resources.
 - -DworkerName=work1,  worker unique id. We use this for failover
-- -Dcollector=true,  this worker is also the collector so he will wait for other workers to finish and call map/reduce. This can be tuned based on available resources.
+- -Dcollector=true,  this worker is also the collector so it will wait for other workers to finish and call map/reduce. This can be tuned based on available resources.
 - -Dchunks=700 , number of chunks we want to divide the file. The smaller the chunks the bigger RAM we need.
 - -DbulkSave=80000 , number of inserts we send in bulk to MongoDB. A too large value may cause the driver to go in out of memory. This can be tuned based on available resources.
 - -DcreateDB=true , this will drop an recreate the DB. We want to do this for the first worker
@@ -63,5 +63,4 @@ collection: final_results -> this is created by the map/reduce command. This is 
 #### 6)Notes
 - If a worker goes down we will need to re-run it with the same name it had before. Names must be unique.
 - The accuracy of the utility is based on the regexp and other filters we used to split the words at CountWorker.java, lines:188,198 This can be tuned.
-- If the command line is too big this is because we depend a lot on the machine we are running the utility on and the file size. Most of the parameters have default values but some tuning is needed.
-- The utility can be run with the commands provided above.
+
