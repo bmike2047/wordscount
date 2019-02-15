@@ -17,17 +17,17 @@ All threads communicate via a MongoDB shared collection to distribute load and f
 The first time the utility(worker) is run,it will create the DB structure and allocate the file chunks.
 It will also be the collector. Once it finished to process all the chunks it will wait for other workers to finish too.
 Then it will invoke a map/reduce command to MongoDB and once MongoDB is done it will display the least and most used word in the file.
-All workers perform an internal map/reduce at java level, before dumping the chunk result to the main collection, to avoid storing large volume of data but this will consume some CPU.
-All the words count are store in DB to be queried at any time (to perform statistics, etc….)
-Load example: chucks: 300, workers: 3 -> each worker will process 100 chunks
-Load example: chucks: 30, workers: 30 -> each worker will process 1 chunks
+All workers perform an internal map/reduce at java level, before dumping the chunk result to the main collection, to avoid storing large volume of data but this will consume some CPU. <br/>
+All the words count are store in DB to be queried at any time (to perform statistics, etc….)<br/>
+Load example: chucks: 300, workers: 3 -> each worker will process 100 chunks<br/>
+Load example: chucks: 30, workers: 30 -> each worker will process 1 chunks<br/>
 Workers can reside on same or different machines.
 
 
 ### 4)DB structure
-db name: file_stats
-collection: workers -> used to store all the workers status and chunk offsets
-collection: results -> main collection where all the workers dump they processed data.
+db name: file_stats<br/>
+collection: workers -> used to store all the workers status and chunk offsets<br/>
+collection: results -> main collection where all the workers dump they processed data.<br/>
 collection: final_results -> this is created by the map/reduce command. This is the main collection that we are interested in. We will use this to perform statistics later if we want.
 
 
