@@ -16,8 +16,8 @@ All threads communicate via a MongoDB shared collection to distribute load and f
 ### 3)Load distribution and startup
 The first time the utility(worker) is run,it will create the DB structure and allocate the file chunks.
 It will also be the collector. Once it finished to process all the chunks it will wait for other workers to finish too.
-Then it will invoke a map-reduce command to MongoDB and once MongoDB is done it will display the least and most used word in the file.
-All workers perform an internal map-reduce at java level, before dumping the chunk result to the main collection, to avoid storing large volume of data but this will consume some CPU.
+Then it will invoke a map/reduce command to MongoDB and once MongoDB is done it will display the least and most used word in the file.
+All workers perform an internal map/reduce at java level, before dumping the chunk result to the main collection, to avoid storing large volume of data but this will consume some CPU.
 All the words count are store in DB to be queried at any time (to perform statistics, etc….)
 Load example: chucks: 300, workers: 3 -> each worker will process 100 chunks
 Load example: chucks: 30, workers: 30 -> each worker will process 1 chunks
@@ -28,7 +28,7 @@ Workers can reside on same or different machines.
 db name: file_stats
 collection: workers -> used to store all the workers status and chunk offsets
 collection: results -> main collection where all the workers dump they processed data.
-collection: final_results -> this is created by the map-reduce command. This is the main collection that we are interested in. We will use this to perform statistics later if we want.
+collection: final_results -> this is created by the map/reduce command. This is the main collection that we are interested in. We will use this to perform statistics later if we want.
 
 
 ### 5)Command line example and parameters description
@@ -39,7 +39,7 @@ collection: final_results -> this is created by the map-reduce command. This is 
 
 - -Xmx500m, Memory for worker. As you can see this is low because we are using lots of chunks. This can be tuned based on available resources.
 - -DworkerName=work1,  worker unique id. We use this for failover
-- -Dcollector=true,  this worker is also the collector so he will wait for other workers to finish and call map-reduce. This can be tuned based on available resources.
+- -Dcollector=true,  this worker is also the collector so he will wait for other workers to finish and call map/reduce. This can be tuned based on available resources.
 - -Dchunks=700 , number of chunks we want to divide the file. The smaller the chunks the bigger RAM we need.
 - -DbulkSave=80000 , number of inserts we send in bulk to MongoDB. A too large value may cause the driver to go in out of memory. This can be tuned based on available resources.
 - -DcreateDB=true , this will drop an recreate the DB. We want to do this for the first worker
